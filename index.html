@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cakebel by Roma | Premium Custom Cake Studio, Bangalore</title>
+<meta name="description" content="Cakebel by Roma — Bangalore's most loved premium custom cake studio in Jigani. Handcrafted birthday, wedding, kids theme & designer cakes. 4.9 rated by 173+ customers. Order now.">
+<meta name="keywords" content="custom cakes bangalore, birthday cakes jigani, wedding cakes bangalore, kids theme cakes anekal, designer cakes bangalore, luxury cakes jigani, Cakebel Roma">
+<meta property="og:title" content="Cakebel by Roma | Premium Custom Cake Studio, Bangalore">
+<meta property="og:description" content="Handcrafted luxury custom cakes for every celebration. 4.9 rated by 173+ customers in Bangalore.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Cormorant:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS ─────────────────────────────────────── */
+:root {
+  --ink:     #1a1512;
+  --ink-mid: #4a3f38;
+  --ink-dim: #8a7a72;
+  --sand:    #f8f4ef;
+  --linen:   #f2ebe2;
+  --warm:    #e8ddd2;
+  --accent:  #b8860b;      /* dark gold */
+  --accent2: #8b4513;      /* saddle brown */
+  --white:   #ffffff;
+  --border:  rgba(26,21,18,0.1);
+
+  --ff-display: 'Playfair Display', Georgia, serif;
+  --ff-italic:  'Cormorant', Georgia, serif;
+  --ff-body:    'DM Sans', system-ui, sans-serif;
+
+  --ease: cubic-bezier(.4,0,.2,1);
+  --ease-out: cubic-bezier(0,0,.2,1);
+}
+
+/* ── RESET ───────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--ff-body); background: var(--white); color: var(--ink); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+img { display: block; max-width: 100%; height: auto; }
+a { text-decoration: none; color: inherit; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--linen); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ── LOADER ──────────────────────────────────────── */
+#loader {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--sand);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 24px;
+  transition: opacity .7s var(--ease), visibility .7s;
+}
+#loader.out { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-brand { font-family: var(--ff-display); font-size: 2.4rem; font-weight: 400; letter-spacing: .04em; color: var(--ink); }
+.loader-sub { font-size: .68rem; letter-spacing: .32em; text-transform: uppercase; color: var(--ink-dim); font-weight: 400; }
+.loader-line { width: 0; height: 1px; background: var(--ink); animation: ldline 2s var(--ease) forwards; }
+@keyframes ldline { to { width: 140px; } }
+
+/* ── ANNOUNCEMENT BAR ───────────────────────────── */
+.announce {
+  background: var(--ink); color: rgba(255,255,255,.85);
+  text-align: center; padding: 10px 20px;
+  font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 300;
+}
+.announce a { color: var(--accent); }
+
+/* ── NAV ─────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 900;
+  background: rgba(255,255,255,.97); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 72px;
+  transition: box-shadow .3s;
+}
+nav.shadowed { box-shadow: 0 2px 20px rgba(26,21,18,.06); }
+.nav-logo { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-main { font-family: var(--ff-display); font-size: 1.5rem; font-weight: 400; letter-spacing: .02em; color: var(--ink); }
+.nav-logo-sub { font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-dim); margin-top: 2px; }
+.nav-center { display: flex; gap: 40px; list-style: none; }
+.nav-center a { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; color: var(--ink-mid); transition: color .25s; }
+.nav-center a:hover { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-wa {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: var(--white);
+  padding: 10px 22px; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 400;
+  transition: background .25s;
+}
+.nav-wa:hover { background: var(--accent2); }
+.nav-wa svg { width: 14px; height: 14px; fill: currentColor; }
+.nav-ham { display: none; flex-direction: column; gap: 5px; width: 26px; }
+.nav-ham span { display: block; height: 1.5px; background: var(--ink); transition: .3s; }
+
+/* ── MOBILE MENU ─────────────────────────────────── */
+.mob-menu {
+  display: none; position: fixed; inset: 0; z-index: 880;
+  background: var(--white);
+  flex-direction: column; align-items: flex-start; justify-content: center;
+  padding: 60px 8%;
+  gap: 8px;
+}
+.mob-menu.open { display: flex; }
+.mob-menu a { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 400; color: var(--ink); padding: 8px 0; border-bottom: 1px solid var(--border); width: 100%; }
+.mob-menu a:hover { color: var(--accent); }
+
+/* ── HERO ─────────────────────────────────────────── */
+#hero {
+  position: relative;
+  height: 100vh; min-height: 640px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #c0392b 0%, #d4560f 28%, #e8820a 55%, #f5a623 80%, #f7c948 100%);
+}
+
+/* Animated warm gradient overlay for depth */
+#hero::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 110%, rgba(255,255,255,.12) 0%, transparent 70%),
+              radial-gradient(ellipse 40% 40% at 20% 20%, rgba(255,220,80,.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Decorative speckle dots */
+#hero::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.12) 2px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.08) 1.5px, transparent 1.5px);
+  background-size: 80px 80px, 40px 40px;
+  background-position: 0 0, 20px 20px;
+  pointer-events: none;
+}
+
+/* ── Slide panels (now content slides, not bg image slides) */
+.hero-slides { position: absolute; inset: 0; z-index: 1; }
+.hero-slide {
+  position: absolute; inset: 0;
+  opacity: 0; transition: opacity 1s ease;
+  pointer-events: none;
+}
+.hero-slide.active { opacity: 1; pointer-events: auto; z-index: 2; }
+
+/* Each slide gets its own tinted gradient accent */
+.hero-slide:nth-child(1) { background: linear-gradient(135deg, #b5280a 0%, #d4560f 30%, #e87d10 60%, #f5a818 85%, #f9d04a 100%); }
+.hero-slide:nth-child(2) { background: linear-gradient(135deg, #7b1f6e 0%, #b03070 30%, #d4506a 60%, #e87e5a 85%, #f5b448 100%); }
+.hero-slide:nth-child(3) { background: linear-gradient(135deg, #145e40 0%, #1f8a60 30%, #2eaa78 60%, #4cbc90 85%, #85d8b8 100%); }
+.hero-slide:nth-child(4) { background: linear-gradient(135deg, #1a2a5e 0%, #2d4a9e 30%, #3d6abf 60%, #5e8cd4 85%, #92b8e8 100%); }
+
+/* ── Floating product images ── */
+.hero-products {
+  position: absolute; inset: 0; z-index: 3;
+  pointer-events: none;
+}
+.hero-prod {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,.28), 0 4px 16px rgba(0,0,0,.2);
+  transition: transform 8s ease-in-out;
+  animation: floatProd var(--dur, 7s) ease-in-out infinite alternate;
+}
+.hero-prod img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* 6 positioned product circles */
+.hero-prod-1 { width: 260px; height: 260px; bottom: 8%; left: 2%;   --dur: 6s;  animation-delay: 0s;   }
+.hero-prod-2 { width: 210px; height: 210px; top:    12%; left: 8%;  --dur: 7.5s; animation-delay: .8s; }
+.hero-prod-3 { width: 300px; height: 300px; bottom: 5%; left: 25%; --dur: 8s;  animation-delay: .4s; }
+.hero-prod-4 { width: 340px; height: 340px; bottom: 3%; right: 22%; --dur: 6.5s; animation-delay: 1.2s; }
+.hero-prod-5 { width: 220px; height: 220px; top:   10%; right: 8%;  --dur: 7s;  animation-delay: .6s; }
+.hero-prod-6 { width: 180px; height: 180px; top:   18%; right: 28%; --dur: 8.5s; animation-delay: 1.6s; }
+
+@keyframes floatProd {
+  0%   { transform: translateY(0px) rotate(-2deg) scale(1); }
+  100% { transform: translateY(-18px) rotate(2deg) scale(1.03); }
+}
+
+/* ── Hero center text ── */
+.hero-inner {
+  position: relative; z-index: 10;
+  height: 100%; display: flex; align-items: center; justify-content: center;
+  padding: 0 6%; text-align: center;
+  flex-direction: column;
+}
+.hero-text { max-width: 680px; }
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(255,255,255,.18); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.35);
+  padding: 7px 20px; border-radius: 50px;
+  font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; font-weight: 400;
+  color: rgba(255,255,255,.92);
+  margin-bottom: 24px;
+}
+.hero-eyebrow span { color: #ffe066; }
+
+.hero-h1 {
+  font-family: var(--ff-display);
+  font-size: clamp(2.6rem, 6vw, 5.2rem);
+  font-weight: 600; line-height: 1.06;
+  color: var(--white);
+  margin-bottom: 18px;
+  text-shadow: 0 4px 24px rgba(0,0,0,.22);
+  letter-spacing: -.01em;
+}
+.hero-h1 em { font-style: italic; font-weight: 400; color: #ffe066; }
+
+.hero-body {
+  font-size: 1.1rem; font-weight: 300; line-height: 1.7;
+  color: rgba(255,255,255,.82);
+  max-width: 480px; margin: 0 auto 40px;
+}
+
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; }
+
+/* Pill CTA — Theobroma-style */
+.btn-pill {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--white); color: var(--ink);
+  padding: 18px 44px; border-radius: 50px;
+  font-size: .82rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 600;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+  transition: transform .25s, box-shadow .25s, background .25s;
+}
+.btn-pill:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(0,0,0,.28); background: var(--linen); }
+
+.btn-pill-ghost {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: 2px solid rgba(255,255,255,.7); color: var(--white);
+  padding: 16px 36px; border-radius: 50px;
+  font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; font-weight: 400;
+  backdrop-filter: blur(4px); background: rgba(255,255,255,.1);
+  transition: border-color .25s, background .25s, transform .25s;
+}
+.btn-pill-ghost:hover { border-color: var(--white); background: rgba(255,255,255,.18); transform: translateY(-2px); }
+
+/* Rating chip */
+.hero-rating {
+  position: absolute; bottom: 48px; right: 6%; z-index: 10;
+  background: rgba(255,255,255,.18); backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,.35); border-radius: 12px;
+  padding: 14px 22px; color: var(--white);
+  display: flex; flex-direction: column; align-items: flex-end; gap: 3px;
+}
+.hero-rating-stars { font-size: 1rem; letter-spacing: 3px; color: #ffe066; }
+.hero-rating-text { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+
+/* Slide dots */
+.hero-dots {
+  position: absolute; bottom: 60px; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 10px; z-index: 10;
+}
+.hero-dot {
+  width: 28px; height: 3px; background: rgba(255,255,255,.35);
+  cursor: pointer; transition: all .4s; border: none; border-radius: 2px;
+  position: relative; overflow: hidden;
+}
+.hero-dot.active { background: rgba(255,255,255,.9); width: 44px; }
+.hero-dot::after {
+  content: ''; position: absolute; left: -100%; top: 0;
+  width: 100%; height: 100%; background: var(--white);
+}
+.hero-dot.active::after { animation: dotProgress 5s linear forwards; }
+@keyframes dotProgress { from { left: -100%; } to { left: 0%; } }
+
+/* Nav arrows */
+.hero-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 10; background: rgba(255,255,255,.18); border: 2px solid rgba(255,255,255,.4);
+  color: var(--white); width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; font-size: 1.2rem; transition: background .25s, transform .25s;
+  backdrop-filter: blur(8px);
+}
+.hero-arrow:hover { background: rgba(255,255,255,.3); transform: translateY(-50%) scale(1.08); }
+.hero-arrow-prev { left: 32px; }
+.hero-arrow-next { right: 32px; }
+
+/* slide-specific headline colour overrides */
+.hero-slide:nth-child(2).active ~ .hero-inner .hero-h1 em { color: #f9aad0; }
+.hero-slide:nth-child(3).active ~ .hero-inner .hero-h1 em { color: #a0f0cc; }
+.hero-slide:nth-child(4).active ~ .hero-inner .hero-h1 em { color: #aad4ff; }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 10px; z-index: 10;
+}
+.hero-scroll-hint span { font-size: .62rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.scroll-bar { width: 1px; height: 44px; background: rgba(255,255,255,.25); position: relative; overflow: hidden; }
+.scroll-bar::after { content:''; position:absolute; top:-100%; left:0; width:1px; height:100%; background: rgba(255,255,255,.8); animation: scrollBar 2s ease-in-out infinite; }
+@keyframes scrollBar { 0%{top:-100%} 100%{top:100%} }
+
+/* ── TICKER ──────────────────────────────────────── */
+.ticker { border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); overflow: hidden; background: var(--white); }
+.ticker-inner { display: flex; animation: ticker 30s linear infinite; white-space: nowrap; }
+.ticker-item { display: inline-flex; align-items: center; gap: 36px; padding: 16px 40px; font-size: .72rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-mid); font-weight: 400; }
+.ticker-sep { width: 3px; height: 3px; background: var(--accent); border-radius: 50%; flex-shrink: 0; }
+@keyframes ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+
+/* ── SECTION SCAFFOLDING ─────────────────────────── */
+section { padding: 96px 6%; }
+.sec-header { margin-bottom: 64px; }
+.sec-header.center { text-align: center; }
+.sec-header.center .sec-sub { margin: 0 auto; }
+.sec-label {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-size: .66rem; letter-spacing: .3em; text-transform: uppercase; color: var(--ink-dim);
+  margin-bottom: 18px;
+}
+.sec-label::before { content:''; width: 28px; height: 1px; background: var(--ink-dim); }
+.sec-h2 { font-family: var(--ff-display); font-size: clamp(2rem, 3.8vw, 3.2rem); font-weight: 400; line-height: 1.15; color: var(--ink); }
+.sec-h2 em { font-style: italic; }
+.sec-sub { font-size: .95rem; font-weight: 300; line-height: 1.85; color: var(--ink-mid); max-width: 520px; margin-top: 18px; }
+
+/* ── ABOUT ───────────────────────────────────────── */
+#about {
+  background: var(--sand); padding: 0;
+  position: relative;
+}
+#about::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=1200&q=60&auto=format&fit=crop');
+  background-size: 55%; background-position: center center; background-repeat: no-repeat;
+  opacity: 0.055;
+  pointer-events: none; z-index: 0;
+}
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
+.about-img-col { position: relative; min-height: 600px; overflow: hidden; }
+.about-img-col img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.about-img-col:hover img { transform: scale(1.04); }
+.about-img-badge {
+  position: absolute; bottom: 40px; left: 40px;
+  background: var(--white); padding: 20px 28px;
+  border-left: 3px solid var(--accent);
+}
+.about-img-badge .num { font-family: var(--ff-display); font-size: 2.6rem; font-weight: 400; color: var(--ink); line-height: 1; }
+.about-img-badge .lbl { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dim); margin-top: 4px; }
+.about-text-col { padding: 80px 6% 80px 7%; display: flex; flex-direction: column; justify-content: center; }
+.about-quote { font-family: var(--ff-italic); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--accent2); line-height: 1.6; margin: 28px 0 32px; border-left: 2px solid var(--warm); padding-left: 24px; }
+.about-body { font-size: .95rem; font-weight: 300; line-height: 2; color: var(--ink-mid); margin-bottom: 40px; }
+.about-stats { display: flex; gap: 40px; padding-top: 36px; border-top: 1px solid var(--border); }
+.a-stat { }
+.a-stat-num { font-family: var(--ff-display); font-size: 2.2rem; font-weight: 400; color: var(--ink); line-height: 1; }
+.a-stat-lbl { font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-dim); margin-top: 6px; }
+
+/* ── COLLECTIONS ─────────────────────────────────── */
+#collections { background: var(--white); }
+.collections-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+.col-card { position: relative; overflow: hidden; cursor: pointer; }
+.col-card.tall { grid-row: span 2; }
+.col-card-img { width: 100%; height: 100%; min-height: 340px; object-fit: cover; transition: transform .9s var(--ease); display: block; }
+.col-card.tall .col-card-img { min-height: 694px; }
+.col-card:hover .col-card-img { transform: scale(1.06); }
+.col-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,21,18,.8) 0%, rgba(26,21,18,.15) 55%, transparent 100%); }
+.col-card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 28px 24px; color: var(--white); }
+.col-card-cat { font-size: .64rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.65); margin-bottom: 6px; }
+.col-card-title { font-family: var(--ff-display); font-size: 1.4rem; font-weight: 400; line-height: 1.2; }
+.col-card-link { display: inline-flex; align-items: center; gap: 8px; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.7); margin-top: 10px; transform: translateY(6px); opacity: 0; transition: all .35s; }
+.col-card:hover .col-card-link { opacity: 1; transform: translateY(0); }
+.col-card-link::after { content: '→'; }
+
+/* ── WHY ─────────────────────────────────────────── */
+#why { background: var(--ink); padding: 96px 0; overflow: hidden; }
+#why .sec-h2 { color: var(--white); }
+#why .sec-label { color: rgba(255,255,255,.4); }
+#why .sec-label::before { background: rgba(255,255,255,.3); }
+#why .sec-sub { color: rgba(255,255,255,.5); }
+#why .sec-header { padding: 0 6%; }
+
+/* Story cards — alternating full-bleed rows */
+.why-story { display: grid; grid-template-columns: 1fr 1fr; min-height: 440px; margin-top: 0; }
+.why-story:nth-child(odd) .why-story-img { order: 1; }
+.why-story:nth-child(odd) .why-story-text { order: 2; }
+.why-story:nth-child(even) .why-story-img { order: 2; }
+.why-story:nth-child(even) .why-story-text { order: 1; }
+
+.why-story-img {
+  position: relative; overflow: hidden; min-height: 380px;
+}
+.why-story-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 1.2s var(--ease);
+}
+.why-story:hover .why-story-img img { transform: scale(1.06); }
+.why-story-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(26,21,18,.45), rgba(184,134,11,.12));
+}
+.why-story-num-badge {
+  position: absolute; top: 28px; left: 28px;
+  font-family: var(--ff-display); font-size: 3.6rem; font-weight: 400;
+  color: rgba(255,255,255,.15); line-height: 1;
+  pointer-events: none;
+}
+
+.why-story-text {
+  background: var(--ink); padding: 64px 7%;
+  display: flex; flex-direction: column; justify-content: center;
+  border: 1px solid rgba(255,255,255,.05);
+  position: relative;
+}
+.why-story-text::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px; background: linear-gradient(to right, rgba(184,134,11,.5), transparent);
+}
+.why-story-icon {
+  font-size: 2rem; margin-bottom: 20px; display: block;
+}
+.why-story-title {
+  font-family: var(--ff-display); font-size: 1.5rem; font-weight: 400;
+  color: var(--white); margin-bottom: 16px; line-height: 1.25;
+}
+.why-story-accent {
+  display: block; font-size: 2.4rem; font-weight: 400;
+  color: #e8c96d; font-family: var(--ff-display); line-height: 1; margin-bottom: 8px;
+}
+.why-story-body {
+  font-size: .9rem; font-weight: 300; line-height: 1.85;
+  color: rgba(255,255,255,.5); margin-bottom: 20px;
+}
+.why-story-quote {
+  font-family: var(--ff-italic); font-size: 1rem; font-style: italic;
+  color: rgba(232,201,109,.7); line-height: 1.6;
+  padding-left: 16px; border-left: 2px solid rgba(184,134,11,.4);
+}
+
+/* ── TESTIMONIALS ────────────────────────────────── */
+#testimonials { background: var(--linen); overflow: hidden; }
+.testi-track-wrap {
+  position: relative; margin-top: 60px;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+.testi-track {
+  display: flex; gap: 24px;
+  animation: testiScroll 38s linear infinite;
+  width: max-content;
+}
+.testi-track:hover { animation-play-state: paused; }
+@keyframes testiScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.testi-card {
+  background: var(--white); padding: 36px 32px;
+  border: 1px solid var(--border);
+  width: 360px; flex-shrink: 0;
+  transition: box-shadow .3s, transform .3s;
+}
+.testi-card:hover { box-shadow: 0 8px 40px rgba(26,21,18,.1); transform: translateY(-3px); }
+.testi-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 22px; }
+.testi-stars { font-size: .85rem; letter-spacing: 3px; color: #c9960b; }
+.testi-source { font-size: .64rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-dim); }
+.testi-text { font-family: var(--ff-italic); font-size: 1.08rem; font-style: italic; font-weight: 300; line-height: 1.8; color: var(--ink); margin-bottom: 28px; }
+.testi-author { display: flex; align-items: center; gap: 14px; border-top: 1px solid var(--border); padding-top: 22px; }
+.testi-avatar { width: 42px; height: 42px; background: var(--warm); display: flex; align-items: center; justify-content: center; font-family: var(--ff-display); font-size: 1.1rem; font-weight: 400; color: var(--ink-mid); flex-shrink: 0; }
+.testi-name { font-size: .88rem; font-weight: 500; color: var(--ink); }
+.testi-meta { font-size: .72rem; color: var(--ink-dim); margin-top: 2px; }
+
+/* ── GALLERY ─────────────────────────────────────── */
+#gallery { background: var(--white); padding-bottom: 0; }
+.gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: auto; gap: 3px; margin-top: 60px; }
+.gallery-cell { overflow: hidden; position: relative; cursor: pointer; }
+.gallery-cell.wide { grid-column: span 2; }
+.gallery-cell.tall { grid-row: span 2; }
+.gallery-cell img { width: 100%; height: 100%; min-height: 260px; object-fit: cover; transition: transform .8s var(--ease); display: block; }
+.gallery-cell.wide img { min-height: 340px; }
+.gallery-cell.tall img { min-height: 526px; }
+.gallery-cell:hover img { transform: scale(1.05); }
+.gallery-cell-label { position: absolute; inset: 0; background: rgba(26,21,18,.55); opacity: 0; transition: opacity .35s; display: flex; align-items: flex-end; padding: 20px; }
+.gallery-cell:hover .gallery-cell-label { opacity: 1; }
+.gallery-cell-label span { font-family: var(--ff-display); font-size: 1.05rem; font-style: italic; color: var(--white); }
+
+/* ── PROCESS ─────────────────────────────────────── */
+#process { background: var(--sand); }
+.process-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 64px; }
+.process-item { padding: 0 32px 0 0; position: relative; }
+.process-item:not(:last-child)::after { content: ''; position: absolute; top: 24px; right: 0; width: 1px; height: 50px; background: var(--border); }
+.process-num { font-family: var(--ff-display); font-size: 3rem; font-weight: 400; color: var(--warm); line-height: 1; margin-bottom: 20px; }
+.process-title { font-family: var(--ff-display); font-size: 1.1rem; font-weight: 400; color: var(--ink); margin-bottom: 12px; }
+.process-body { font-size: .85rem; font-weight: 300; line-height: 1.85; color: var(--ink-mid); }
+.process-item:nth-child(n+2) { padding-left: 32px; padding-right: 32px; }
+.process-item:last-child { padding-right: 0; }
+
+/* ── SPLIT CTA ───────────────────────────────────── */
+#cta { padding: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.cta-left { position: relative; min-height: 480px; overflow: hidden; }
+.cta-left img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cta-left-overlay { position: absolute; inset: 0; background: rgba(26,21,18,.45); }
+.cta-right { background: var(--ink); display: flex; flex-direction: column; justify-content: center; padding: 80px 7%; }
+.cta-right .sec-h2 { color: var(--white); }
+.cta-right .sec-label { color: rgba(255,255,255,.4); }
+.cta-right .sec-label::before { background: rgba(255,255,255,.3); }
+.cta-right .sec-sub { color: rgba(255,255,255,.5); max-width: 400px; }
+.cta-actions { display: flex; flex-direction: column; gap: 12px; margin-top: 40px; max-width: 280px; }
+.cta-btn-wa { display: flex; align-items: center; justify-content: center; gap: 10px; background: var(--white); color: var(--ink); padding: 16px 32px; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 500; transition: background .25s; }
+.cta-btn-wa svg { width: 16px; height: 16px; fill: currentColor; }
+.cta-btn-wa:hover { background: var(--linen); }
+.cta-btn-call { display: flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid rgba(255,255,255,.3); color: rgba(255,255,255,.8); padding: 15px 32px; font-size: .74rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 400; transition: border-color .25s, background .25s; }
+.cta-btn-call:hover { border-color: rgba(255,255,255,.7); background: rgba(255,255,255,.05); }
+
+/* ── CONTACT ─────────────────────────────────────── */
+#contact { background: var(--white); position: relative; overflow: hidden; }
+
+/* 4 watermark cake images — one per corner */
+#contact::before,
+#contact::after,
+#contact .contact-wm-3,
+#contact .contact-wm-4 {
+  content: '';
+  position: absolute;
+  background-size: cover; background-repeat: no-repeat; background-position: center;
+  opacity: 0.25;
+  pointer-events: none; z-index: 0;
+  border-radius: 50%;
+}
+/* Top-left watermark */
+#contact::before {
+  width: 380px; height: 380px;
+  top: -80px; left: -80px;
+  background-image: url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=600&q=70&auto=format&fit=crop&crop=center');
+}
+/* Bottom-right watermark */
+#contact::after {
+  width: 420px; height: 420px;
+  bottom: -100px; right: -80px;
+  background-image: url('https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=600&q=70&auto=format&fit=crop&crop=center');
+}
+/* Top-right watermark */
+.contact-wm-3 {
+  width: 300px; height: 300px;
+  top: 20px; right: 10px;
+  background-image: url('https://images.unsplash.com/photo-1568051243858-533a607809a5?w=600&q=70&auto=format&fit=crop&crop=center');
+  position: absolute; background-size: cover; background-repeat: no-repeat; background-position: center;
+  opacity: 0.25; pointer-events: none; z-index: 0; border-radius: 50%;
+}
+/* Bottom-left watermark */
+.contact-wm-4 {
+  width: 340px; height: 340px;
+  bottom: 10px; left: 10px;
+  background-image: url('https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=600&q=70&auto=format&fit=crop&crop=center');
+  position: absolute; background-size: cover; background-repeat: no-repeat; background-position: center;
+  opacity: 0.25; pointer-events: none; z-index: 0; border-radius: 50%;
+}
+
+/* Ensure all contact content sits above watermarks */
+#contact > .sec-header,
+#contact > .contact-grid { position: relative; z-index: 1; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 60px; }
+.contact-details { display: flex; flex-direction: column; gap: 0; }
+.contact-row { padding: 22px 0; border-bottom: 1px solid var(--border); display: flex; gap: 24px; align-items: flex-start; }
+.contact-row:first-child { border-top: 1px solid var(--border); }
+.contact-row-label { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dim); min-width: 90px; padding-top: 2px; }
+.contact-row-val { font-size: .92rem; font-weight: 300; line-height: 1.7; color: var(--ink-mid); }
+.contact-row-val a { color: var(--ink-mid); transition: color .2s; }
+.contact-row-val a:hover { color: var(--ink); }
+.contact-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px; }
+.contact-action-btn { padding: 12px 22px; font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; font-weight: 400; border: 1px solid var(--border); color: var(--ink-mid); transition: all .25s; display: inline-flex; align-items: center; gap: 8px; }
+.contact-action-btn:hover { border-color: var(--ink); color: var(--ink); }
+.contact-action-btn.primary { background: var(--ink); color: var(--white); border-color: var(--ink); }
+.contact-action-btn.primary:hover { background: var(--accent2); border-color: var(--accent2); }
+.map-frame { width: 100%; height: 220px; border: 1px solid var(--border); overflow: hidden; margin-top: 28px; }
+.map-frame iframe { width: 100%; height: 100%; border: none; filter: grayscale(100%) contrast(1.05); }
+/* FORM */
+.contact-form { }
+.form-title { font-family: var(--ff-display); font-size: 1.6rem; font-weight: 400; color: var(--ink); margin-bottom: 6px; }
+.form-sub { font-size: .85rem; font-weight: 300; color: var(--ink-dim); margin-bottom: 36px; line-height: 1.6; }
+.fg { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+.fg-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fg label { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-mid); font-weight: 400; }
+.fg input, .fg select, .fg textarea {
+  width: 100%; padding: 13px 14px;
+  border: 1px solid var(--border); background: var(--sand);
+  font-family: var(--ff-body); font-size: .9rem; font-weight: 300; color: var(--ink);
+  outline: none; transition: border-color .25s;
+  -webkit-appearance: none;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--ink); background: var(--white); }
+.fg textarea { resize: vertical; min-height: 100px; }
+.form-btn { width: 100%; background: var(--ink); color: var(--white); padding: 16px; font-family: var(--ff-body); font-size: .74rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 400; border: none; cursor: pointer; transition: background .25s; margin-top: 6px; }
+.form-btn:hover { background: var(--accent2); }
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 6% 36px; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.footer-brand-name { font-family: var(--ff-display); font-size: 1.8rem; font-weight: 400; color: var(--white); line-height: 1; }
+.footer-brand-sub { font-size: .62rem; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-top: 4px; display: block; margin-bottom: 18px; }
+.footer-brand-desc { font-size: .85rem; font-weight: 300; line-height: 1.9; color: rgba(255,255,255,.4); margin-bottom: 28px; max-width: 260px; }
+.footer-rating { display: flex; align-items: center; gap: 10px; }
+.footer-rating-stars { font-size: .85rem; letter-spacing: 2px; color: #e8c96d; }
+.footer-rating-text { font-size: .7rem; color: rgba(255,255,255,.35); letter-spacing: .1em; }
+.footer-col-title { font-size: .66rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 22px; font-weight: 400; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.footer-col ul a { font-size: .84rem; font-weight: 300; color: rgba(255,255,255,.38); transition: color .25s; }
+.footer-col ul a:hover { color: rgba(255,255,255,.8); }
+.footer-col p { font-size: .84rem; font-weight: 300; color: rgba(255,255,255,.38); line-height: 1.9; }
+.footer-col p a { color: rgba(255,255,255,.55); transition: color .25s; }
+.footer-col p a:hover { color: var(--white); }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 32px; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-size: .72rem; color: rgba(255,255,255,.25); letter-spacing: .06em; }
+.footer-love { font-size: .72rem; color: rgba(255,255,255,.25); font-family: var(--ff-italic); font-style: italic; }
+.footer-social { display: flex; gap: 14px; }
+.footer-social a { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.35); transition: color .25s; }
+.footer-social a:hover { color: var(--white); }
+
+/* ── FLOATING WHATSAPP ───────────────────────────── */
+.wa-float {
+  position: fixed; bottom: 32px; right: 32px; z-index: 800;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+}
+.wa-float-btn {
+  width: 56px; height: 56px; background: #25D366;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 24px rgba(37,211,102,.3);
+  transition: transform .25s, box-shadow .25s;
+}
+.wa-float-btn:hover { transform: scale(1.08); box-shadow: 0 6px 32px rgba(37,211,102,.45); }
+.wa-float-btn svg { width: 28px; height: 28px; fill: var(--white); }
+.wa-float-pulse { position: absolute; inset: -4px; border-radius: 50%; border: 1.5px solid #25D366; animation: wapulse 2.4s ease-out infinite; pointer-events: none; }
+@keyframes wapulse { 0%{transform:scale(1);opacity:.5} 100%{transform:scale(1.6);opacity:0} }
+.wa-tooltip { background: var(--ink); color: var(--white); padding: 8px 16px; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; opacity: 0; transform: translateX(-8px); transition: all .25s; pointer-events: none; }
+.wa-float:hover .wa-tooltip { opacity: 1; transform: translateX(0); }
+
+/* ── BACK TO TOP ─────────────────────────────────── */
+.btt { position: fixed; bottom: 32px; left: 32px; z-index: 800; width: 44px; height: 44px; border: 1px solid var(--border); background: var(--white); color: var(--ink); display: flex; align-items: center; justify-content: center; font-size: .9rem; cursor: pointer; transition: all .25s; opacity: 0; pointer-events: none; box-shadow: 0 2px 12px rgba(26,21,18,.08); }
+.btt.show { opacity: 1; pointer-events: auto; }
+.btt:hover { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+/* ── TOAST ───────────────────────────────────────── */
+.toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%) translateY(16px); background: var(--ink); color: var(--white); padding: 13px 28px; font-size: .82rem; letter-spacing: .06em; z-index: 9000; opacity: 0; transition: all .35s; pointer-events: none; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── REVEAL ──────────────────────────────────────── */
+.rv { opacity: 0; transform: translateY(24px); transition: opacity .75s var(--ease), transform .75s var(--ease); }
+.rv.in { opacity: 1; transform: none; }
+.rv-l { opacity: 0; transform: translateX(-24px); transition: opacity .75s var(--ease), transform .75s var(--ease); }
+.rv-l.in { opacity: 1; transform: none; }
+.rv-r { opacity: 0; transform: translateX(24px); transition: opacity .75s var(--ease), transform .75s var(--ease); }
+.rv-r.in { opacity: 1; transform: none; }
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.4s}.d6{transition-delay:.48s}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:1100px){
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .testi-card { width: 300px; }
+  .collections-layout { grid-template-columns: 1fr 1fr; }
+  .col-card.tall { grid-row: span 1; }
+  .col-card.tall .col-card-img { min-height: 340px; }
+}
+@media(max-width:900px){
+  .about-grid { grid-template-columns: 1fr; }
+  .about-img-col { min-height: 400px; }
+  .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+  #cta { grid-template-columns: 1fr; }
+  .cta-left { min-height: 320px; }
+  .process-row { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .process-item::after { display: none; }
+  .process-item { padding: 0; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  .gallery-cell.wide { grid-column: span 2; }
+  .gallery-cell.tall { grid-row: span 1; }
+  .why-story { grid-template-columns: 1fr; }
+  .why-story:nth-child(odd) .why-story-img,
+  .why-story:nth-child(even) .why-story-img { order: 0; }
+  .why-story:nth-child(odd) .why-story-text,
+  .why-story:nth-child(even) .why-story-text { order: 1; }
+  .why-story-img { min-height: 280px; }
+}
+@media(max-width:768px){
+  section { padding: 64px 5%; }
+  .nav-center, .nav-wa { display: none; }
+  .nav-ham { display: flex; }
+  .testi-card { width: 280px; }
+  .collections-layout { grid-template-columns: 1fr; }
+  .hero-h1 { font-size: 2.4rem; }
+  .hero-rating { display: none; }
+  .hero-arrow { display: none; }
+  .hero-prod-1 { width: 140px; height: 140px; }
+  .hero-prod-2 { width: 110px; height: 110px; top: 8%; left: 4%; }
+  .hero-prod-3 { width: 160px; height: 160px; bottom: 14%; left: 14%; }
+  .hero-prod-4 { width: 180px; height: 180px; bottom: 12%; right: 10%; }
+  .hero-prod-5 { width: 120px; height: 120px; top: 8%; right: 4%; }
+  .hero-prod-6 { display: none; }
+  .process-row { grid-template-columns: 1fr; }
+  .footer-top { grid-template-columns: 1fr; gap: 36px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .fg-row { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; }
+  #why { padding: 64px 0; }
+}
+@media(max-width:480px){
+  .gallery-grid { grid-template-columns: 1fr; }
+  .gallery-cell.wide { grid-column: span 1; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .cta-actions { max-width: 100%; }
+  .contact-actions { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-brand">Cakebel</div>
+  <div class="loader-sub">by Roma</div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- MOBILE MENU -->
+<div class="mob-menu" id="mobMenu">
+  <a href="#hero" onclick="closeMob()">Home</a>
+  <a href="#about" onclick="closeMob()">Our Story</a>
+  <a href="#collections" onclick="closeMob()">Collections</a>
+  <a href="#gallery" onclick="closeMob()">Gallery</a>
+  <a href="#testimonials" onclick="closeMob()">Reviews</a>
+  <a href="#contact" onclick="closeMob()">Contact</a>
+</div>
+
+<!-- ANNOUNCEMENT -->
+<div class="announce">
+  Free delivery across Bengaluru South &nbsp;·&nbsp; <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to place a custom cake order" target="_blank">Order on WhatsApp</a> &nbsp;·&nbsp; +91 99864 31122
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-main">Cakebel</span>
+    <span class="nav-logo-sub">by Roma &nbsp;· &nbsp;Premium Cake Studio</span>
+  </a>
+  <ul class="nav-center">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#collections">Collections</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to order a custom cake" target="_blank" class="nav-wa">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order Now
+    </a>
+    <button class="nav-ham" id="navHam" onclick="toggleMob()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <!-- Gradient colour slides -->
+  <div class="hero-slides">
+    <div class="hero-slide active"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </div>
+
+  <!-- Floating product cake images -->
+  <div class="hero-products">
+    <div class="hero-prod hero-prod-1">
+      <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=520&q=85&auto=format&fit=crop&crop=center" alt="Wedding cake">
+    </div>
+    <div class="hero-prod hero-prod-2">
+      <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=420&q=85&auto=format&fit=crop&crop=top" alt="Birthday cake">
+    </div>
+    <div class="hero-prod hero-prod-3">
+      <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=600&q=85&auto=format&fit=crop&crop=center" alt="Custom cake">
+    </div>
+    <div class="hero-prod hero-prod-4">
+      <img src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=680&q=85&auto=format&fit=crop&crop=center" alt="Floral birthday cake">
+    </div>
+    <div class="hero-prod hero-prod-5">
+      <img src="https://images.unsplash.com/photo-1568051243858-533a607809a5?w=440&q=85&auto=format&fit=crop&crop=center" alt="Floral designer cake">
+    </div>
+    <div class="hero-prod hero-prod-6">
+      <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=360&q=85&auto=format&fit=crop&crop=center" alt="Chocolate truffle cake">
+    </div>
+  </div>
+
+  <!-- Arrows -->
+  <button class="hero-arrow hero-arrow-prev" onclick="heroSlide(-1)" aria-label="Previous">&#8592;</button>
+  <button class="hero-arrow hero-arrow-next" onclick="heroSlide(1)" aria-label="Next">&#8594;</button>
+
+  <!-- Centre content -->
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Bengaluru's Premier Custom Cake Studio &nbsp;<span>· 4.9 Stars · 173+ Reviews</span></span>
+      <h1 class="hero-h1" id="heroHeadline">Crafted with Love,<br><em>Delivered with Joy</em></h1>
+      <p class="hero-body" id="heroSub">Luxury handcrafted cakes designed for every celebration that deserves to be extraordinary.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to order a custom cake" target="_blank" class="btn-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order Now
+        </a>
+        <a href="#collections" class="btn-pill-ghost">See Collections</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-rating">
+    <span class="hero-rating-stars">★★★★★</span>
+    <span class="hero-rating-text">4.9 · 173 Reviews · Google</span>
+  </div>
+  <div class="hero-dots">
+    <button class="hero-dot active" onclick="goToSlide(0)"></button>
+    <button class="hero-dot" onclick="goToSlide(1)"></button>
+    <button class="hero-dot" onclick="goToSlide(2)"></button>
+    <button class="hero-dot" onclick="goToSlide(3)"></button>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div class="ticker-item">Custom Theme Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Wedding Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Birthday Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Kids Theme Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Chocolate Truffle <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Designer Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Anniversary Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Celebration Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Delivery & Takeaway <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Free Parking · Jigani <span class="ticker-sep"></span></div>
+    <!-- duplicate -->
+    <div class="ticker-item">Custom Theme Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Wedding Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Birthday Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Kids Theme Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Chocolate Truffle <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Designer Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Anniversary Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Celebration Cakes <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Delivery & Takeaway <span class="ticker-sep"></span></div>
+    <div class="ticker-item">Free Parking · Jigani <span class="ticker-sep"></span></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-img-col rv-l">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=85&auto=format&fit=crop&crop=center" alt="Baker Roma crafting a luxury cake — Cakebel by Roma, Bangalore" loading="lazy">
+      <div class="about-img-badge">
+        <div class="num">4.9<span style="font-size:1.4rem">★</span></div>
+        <div class="lbl">Google Rating</div>
+      </div>
+    </div>
+    <div class="about-text-col rv-r">
+      <div class="sec-label">Our Story</div>
+      <h2 class="sec-h2">Where Passion<br>Meets <em>Perfection</em></h2>
+      <blockquote class="about-quote">"Every cake is a canvas. Every celebration, a story worth telling."</blockquote>
+      <p class="about-body">Cakebel by Roma was born from a simple belief — every celebration deserves a cake as unique and beautiful as the person being honoured. What began as Roma's personal passion for baking has grown into Bengaluru's most trusted custom cake studio, nestled in the heart of Jigani.<br><br>With an artist's eye for detail and a baker's reverence for flavour, Roma handcrafts each cake from the finest, freshest ingredients. No two cakes are alike. Each is a conversation — a story told in chocolate, sugar flowers, and buttercream — made exclusively for you.</p>
+      <a href="https://wa.me/919986431122?text=Hi Roma, tell me more about Cakebel" target="_blank" class="btn-solid" style="align-self:flex-start;margin-bottom:36px">Connect with Roma</a>
+      <div class="about-stats">
+        <div class="a-stat"><div class="a-stat-num">173+</div><div class="a-stat-lbl">Verified Reviews</div></div>
+        <div class="a-stat"><div class="a-stat-num">4.9</div><div class="a-stat-lbl">Google Rating</div></div>
+        <div class="a-stat"><div class="a-stat-num">500+</div><div class="a-stat-lbl">Cakes Crafted</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLLECTIONS -->
+<section id="collections">
+  <div class="sec-header rv">
+    <div class="sec-label">Signature Creations</div>
+    <h2 class="sec-h2">Our Cake <em>Collections</em></h2>
+    <p class="sec-sub">Each category reflects a distinct craft — from whimsical children's themes to multi-tiered wedding masterpieces. Every cake made to order.</p>
+  </div>
+  <div class="collections-layout">
+    <!-- tall card -->
+    <div class="col-card tall rv d1">
+      <img class="col-card-img"
+        src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=700&q=85&auto=format&fit=crop&crop=center"
+        alt="Luxury multi-tier wedding cake — Cakebel by Roma"
+        loading="lazy">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <div class="col-card-cat">Bridal Collection</div>
+        <div class="col-card-title">Wedding Cakes</div>
+        <div class="col-card-link">Order this collection</div>
+      </div>
+    </div>
+    <!-- right top -->
+    <div class="col-card rv d2">
+      <img class="col-card-img"
+        src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=600&q=85&auto=format&fit=crop&crop=center"
+        alt="Elegant birthday cake with flowers — Cakebel by Roma Bangalore"
+        loading="lazy">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <div class="col-card-cat">Celebration</div>
+        <div class="col-card-title">Birthday Cakes</div>
+        <div class="col-card-link">Order this collection</div>
+      </div>
+    </div>
+    <div class="col-card rv d3">
+      <img class="col-card-img"
+        src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&q=85&auto=format&fit=crop&crop=center"
+        alt="Colourful kids theme custom cake — Cakebel by Roma"
+        loading="lazy">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <div class="col-card-cat">Kids Special</div>
+        <div class="col-card-title">Kids Theme Cakes</div>
+        <div class="col-card-link">Order this collection</div>
+      </div>
+    </div>
+    <!-- bottom row -->
+    <div class="col-card rv d1">
+      <img class="col-card-img"
+        src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&q=85&auto=format&fit=crop&crop=center"
+        alt="Rich chocolate truffle cake — Cakebel by Roma Bangalore"
+        loading="lazy">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <div class="col-card-cat">Signature Flavour</div>
+        <div class="col-card-title">Chocolate Truffle Cakes</div>
+        <div class="col-card-link">Order this collection</div>
+      </div>
+    </div>
+    <div class="col-card rv d2">
+      <img class="col-card-img"
+        src="https://images.unsplash.com/photo-1562440499-64c9a111f713?w=600&q=85&auto=format&fit=crop&crop=center"
+        alt="Minimalist luxury white cake — Cakebel by Roma"
+        loading="lazy">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <div class="col-card-cat">Editorial Series</div>
+        <div class="col-card-title">Minimal Luxury Cakes</div>
+        <div class="col-card-link">Order this collection</div>
+      </div>
+    </div>
+    <div class="col-card rv d3">
+      <img class="col-card-img"
+        src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=600&q=85&auto=format&fit=crop&crop=center"
+        alt="Bespoke designer custom cake — Cakebel by Roma Bangalore"
+        loading="lazy">
+      <div class="col-card-overlay"></div>
+      <div class="col-card-info">
+        <div class="col-card-cat">Bespoke</div>
+        <div class="col-card-title">Customized Designer Cakes</div>
+        <div class="col-card-link">Order this collection</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE -->
+<section id="why">
+  <div class="sec-header rv">
+    <div class="sec-label">Why Cakebel</div>
+    <h2 class="sec-h2">The Standard We Hold<br><em>Every Cake To</em></h2>
+    <p class="sec-sub">Six commitments that every Cakebel creation is built on — because you deserve nothing less.</p>
+  </div>
+
+  <!-- Story 1 -->
+  <div class="why-story rv">
+    <div class="why-story-img">
+      <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=900&q=85&auto=format&fit=crop&crop=center" alt="173+ verified 5-star cake reviews Bangalore">
+      <div class="why-story-img-overlay"></div>
+      <div class="why-story-num-badge">01</div>
+    </div>
+    <div class="why-story-text">
+      <span class="why-story-icon">⭐</span>
+      <div class="why-story-title"><span class="why-story-accent">4.9 Stars</span>173+ Verified Reviews</div>
+      <p class="why-story-body">Bengaluru's most consistently rated custom cake studio — verified by real families who trusted us with their most meaningful celebrations.</p>
+      <p class="why-story-quote">"Roma's cakes are the reason our family celebrations feel complete." — Ramesh, Jigani</p>
+    </div>
+  </div>
+
+  <!-- Story 2 -->
+  <div class="why-story rv">
+    <div class="why-story-img">
+      <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=900&q=85&auto=format&fit=crop&crop=center" alt="Custom design cake being crafted with care">
+      <div class="why-story-img-overlay"></div>
+      <div class="why-story-num-badge">02</div>
+    </div>
+    <div class="why-story-text">
+      <span class="why-story-icon">🎨</span>
+      <div class="why-story-title">Detailed Custom Designs</div>
+      <p class="why-story-body">We listen first, then create. Every cake is designed exclusively around your vision — no templates, no shortcuts, no two cakes ever the same.</p>
+      <p class="why-story-quote">"She understood exactly what I had in mind — and made it 10× more beautiful." — Kavitha, Bangalore</p>
+    </div>
+  </div>
+
+  <!-- Story 3 -->
+  <div class="why-story rv">
+    <div class="why-story-img">
+      <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=900&q=85&auto=format&fit=crop&crop=center" alt="Fresh premium ingredients for cakes">
+      <div class="why-story-img-overlay"></div>
+      <div class="why-story-num-badge">03</div>
+    </div>
+    <div class="why-story-text">
+      <span class="why-story-icon">🌿</span>
+      <div class="why-story-title">Fresh & Premium Ingredients</div>
+      <p class="why-story-body">From single-origin cocoa to farm-fresh dairy — every ingredient is handpicked for quality, freshness, and flavour integrity.</p>
+      <p class="why-story-quote">"The flavour is unlike any cake I've had — you can taste the quality in every bite." — Meghana, Bangalore</p>
+    </div>
+  </div>
+
+  <!-- Story 4 -->
+  <div class="why-story rv">
+    <div class="why-story-img">
+      <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=900&q=85&auto=format&fit=crop&crop=center" alt="On-time cake delivery Bangalore">
+      <div class="why-story-img-overlay"></div>
+      <div class="why-story-num-badge">04</div>
+    </div>
+    <div class="why-story-text">
+      <span class="why-story-icon">⏱</span>
+      <div class="why-story-title">On-Time, Every Time</div>
+      <p class="why-story-body">Celebrations cannot be rescheduled. We take delivery timelines as seriously as the design itself — your cake arrives intact and on time.</p>
+      <p class="why-story-quote">"Delivered 30 minutes early, perfectly intact. Total peace of mind." — Nandita, Anekal</p>
+    </div>
+  </div>
+
+  <!-- Story 5 -->
+  <div class="why-story rv">
+    <div class="why-story-img">
+      <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&q=85&auto=format&fit=crop&crop=center" alt="Beautiful cake presentation packaging">
+      <div class="why-story-img-overlay"></div>
+      <div class="why-story-num-badge">05</div>
+    </div>
+    <div class="why-story-text">
+      <span class="why-story-icon">✨</span>
+      <div class="why-story-title">Beautiful Presentation</div>
+      <p class="why-story-body">Packaged with the same care as the baking. Unboxing a Cakebel cake is an experience in itself — built to be photographed and remembered.</p>
+      <p class="why-story-quote">"Every guest stopped to photograph the cake before we cut it. It was art." — Divya, Bangalore</p>
+    </div>
+  </div>
+
+  <!-- Story 6 -->
+  <div class="why-story rv">
+    <div class="why-story-img">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=85&auto=format&fit=crop&crop=center" alt="Roma personally crafting a custom cake">
+      <div class="why-story-img-overlay"></div>
+      <div class="why-story-num-badge">06</div>
+    </div>
+    <div class="why-story-text">
+      <span class="why-story-icon">💬</span>
+      <div class="why-story-title">Direct Personalised Service</div>
+      <p class="why-story-body">Work directly with Roma from brief to delivery. Your story, your preferences, your vision — at the heart of every conversation and every cake.</p>
+      <p class="why-story-quote">"Roma feels less like a vendor and more like a family member. She genuinely cares." — Priya, Jigani</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="sec-header center rv">
+    <div class="sec-label">Client Stories</div>
+    <h2 class="sec-h2">173 Celebrations,<br><em>173 Happy Families</em></h2>
+    <p class="sec-sub">Every review is a real story. Here's what Bangalore's families say about their Cakebel experience.</p>
+  </div>
+  <div class="testi-track-wrap">
+    <div class="testi-track">
+      <!-- Set 1 -->
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"The attention to detail on my daughter's birthday cake was absolutely extraordinary. Every petal, every swirl — perfect. Looked exactly as we imagined, tasted even better."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div><div class="testi-name">Priya Sharma</div><div class="testi-meta">Birthday Cake · Jigani</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Soft, moist, and absolutely delicious. The chocolate truffle had the perfect balance of sweetness. Roma made our anniversary truly unforgettable."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><div class="testi-name">Arjun & Meena</div><div class="testi-meta">Anniversary Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Best customised cakes in Bangalore. The Hulk theme cake for my son was beyond expectations — he didn't stop talking about it for days. We've ordered three times since."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div><div class="testi-name">Sunitha Reddy</div><div class="testi-meta">Kids Theme Cake · Anekal</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Elegant presentation, rich flavours, delivered exactly as requested. The wedding cake was the highlight of our reception. Guests haven't stopped asking who made it."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">N</div>
+          <div><div class="testi-name">Nandita & Vikram</div><div class="testi-meta">Wedding Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Roma understood the vision instantly. The customised designer cake was a complete showstopper. Every guest took a photograph before anyone dared to cut it."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">K</div>
+          <div><div class="testi-name">Kavitha Nair</div><div class="testi-meta">Designer Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Every family celebration for the past two years has had a Cakebel cake at its centre. Roma has become part of our family story. The quality is unmatched in this part of Bangalore."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Ramesh Iyengar</div><div class="testi-meta">Repeat Client · Jigani</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Ordered a 3-tier floral cake for my parents' 30th anniversary. Roma was so patient with our changes and the final cake was breathtaking. Absolute perfection, will always order from here!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">D</div>
+          <div><div class="testi-name">Divya Krishnamurthy</div><div class="testi-meta">Anniversary Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"The fondant work on the unicorn cake for my daughter's 5th birthday was better than any professional photo I'd seen. She was speechless. A memory we'll cherish forever."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div><div class="testi-name">Meghana Shetty</div><div class="testi-meta">Kids Theme · Jigani</div></div>
+        </div>
+      </div>
+      <!-- Set 2 (duplicate for seamless loop) -->
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"The attention to detail on my daughter's birthday cake was absolutely extraordinary. Every petal, every swirl — perfect. Looked exactly as we imagined, tasted even better."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">P</div>
+          <div><div class="testi-name">Priya Sharma</div><div class="testi-meta">Birthday Cake · Jigani</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Soft, moist, and absolutely delicious. The chocolate truffle had the perfect balance of sweetness. Roma made our anniversary truly unforgettable."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><div class="testi-name">Arjun & Meena</div><div class="testi-meta">Anniversary Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Best customised cakes in Bangalore. The Hulk theme cake for my son was beyond expectations — he didn't stop talking about it for days. We've ordered three times since."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div><div class="testi-name">Sunitha Reddy</div><div class="testi-meta">Kids Theme Cake · Anekal</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Elegant presentation, rich flavours, delivered exactly as requested. The wedding cake was the highlight of our reception. Guests haven't stopped asking who made it."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">N</div>
+          <div><div class="testi-name">Nandita & Vikram</div><div class="testi-meta">Wedding Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Roma understood the vision instantly. The customised designer cake was a complete showstopper. Every guest took a photograph before anyone dared to cut it."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">K</div>
+          <div><div class="testi-name">Kavitha Nair</div><div class="testi-meta">Designer Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Every family celebration for the past two years has had a Cakebel cake at its centre. Roma has become part of our family story. The quality is unmatched in this part of Bangalore."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="testi-name">Ramesh Iyengar</div><div class="testi-meta">Repeat Client · Jigani</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"Ordered a 3-tier floral cake for my parents' 30th anniversary. Roma was so patient with our changes and the final cake was breathtaking. Absolute perfection, will always order from here!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">D</div>
+          <div><div class="testi-name">Divya Krishnamurthy</div><div class="testi-meta">Anniversary Cake · Bangalore</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-top">
+          <div class="testi-stars">★★★★★</div>
+          <div class="testi-source">Google Review</div>
+        </div>
+        <p class="testi-text">"The fondant work on the unicorn cake for my daughter's 5th birthday was better than any professional photo I'd seen. She was speechless. A memory we'll cherish forever."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">M</div>
+          <div><div class="testi-name">Meghana Shetty</div><div class="testi-meta">Kids Theme · Jigani</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="sec-header rv">
+    <div class="sec-label">Portfolio</div>
+    <h2 class="sec-h2">A Glimpse of Our <em>Work</em></h2>
+    <p class="sec-sub">Real cakes. Real celebrations. Every photograph is a Cakebel original.</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-cell wide rv d1">
+      <img src="https://images.unsplash.com/photo-1516054575922-f0b8eeadec1a?w=900&q=80&auto=format&fit=crop&crop=center" alt="Luxury wedding cake with flowers — Cakebel Bangalore" loading="lazy">
+      <div class="gallery-cell-label"><span>Wedding Masterpiece</span></div>
+    </div>
+    <div class="gallery-cell tall rv d2">
+      <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=80&auto=format&fit=crop&crop=center" alt="Birthday cake with candles — Cakebel by Roma" loading="lazy">
+      <div class="gallery-cell-label"><span>Birthday Celebration</span></div>
+    </div>
+    <div class="gallery-cell rv d3">
+      <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=80&auto=format&fit=crop&crop=top" alt="Chocolate cake slice — Cakebel premium" loading="lazy">
+      <div class="gallery-cell-label"><span>Chocolate Truffle</span></div>
+    </div>
+    <div class="gallery-cell rv d1">
+      <img src="https://images.unsplash.com/photo-1568051243858-533a607809a5?w=600&q=80&auto=format&fit=crop&crop=center" alt="Floral decorated custom cake — Cakebel Roma" loading="lazy">
+      <div class="gallery-cell-label"><span>Floral Designer Cake</span></div>
+    </div>
+    <div class="gallery-cell rv d2">
+      <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=600&q=80&auto=format&fit=crop&crop=center" alt="Pastel minimalist luxury cake — Cakebel by Roma" loading="lazy">
+      <div class="gallery-cell-label"><span>Minimal Luxury</span></div>
+    </div>
+    <div class="gallery-cell rv d3">
+      <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=600&q=80&auto=format&fit=crop&crop=center" alt="Anniversary custom cake — Cakebel Jigani Bangalore" loading="lazy">
+      <div class="gallery-cell-label"><span>Anniversary Special</span></div>
+    </div>
+    <div class="gallery-cell wide rv d1">
+      <img src="https://images.unsplash.com/photo-1549145114-f4bc9c5a8cff?w=900&q=80&auto=format&fit=crop&crop=center" alt="Colourful kids theme cake — Cakebel by Roma kids collection" loading="lazy">
+      <div class="gallery-cell-label"><span>Kids Theme Collection</span></div>
+    </div>
+  </div>
+  <div style="text-align:center;padding:48px 0 0">
+    <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to see more cake designs" target="_blank" class="btn-solid" style="display:inline-flex">View Full Portfolio on WhatsApp</a>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="sec-header center rv">
+    <div class="sec-label">How It Works</div>
+    <h2 class="sec-h2">Your Cake in <em>Four Steps</em></h2>
+    <p class="sec-sub">A refined, simple process from first message to final delivery — designed around your schedule and your vision.</p>
+  </div>
+  <div class="process-row">
+    <div class="process-item rv d1">
+      <div class="process-num">01</div>
+      <div class="process-title">Share Your Theme</div>
+      <div class="process-body">Tell us the occasion, theme, colour palette, and any inspiration you have. The more detail you share, the more personal your cake becomes.</div>
+    </div>
+    <div class="process-item rv d2">
+      <div class="process-num">02</div>
+      <div class="process-title">Customise Flavour & Design</div>
+      <div class="process-body">Select from our curated flavour menu and collaborate with Roma to finalise every design element, tier structure, and detail.</div>
+    </div>
+    <div class="process-item rv d3">
+      <div class="process-num">03</div>
+      <div class="process-title">Confirm Your Booking</div>
+      <div class="process-body">Secure your date with a booking confirmation. We keep you informed through the crafting process so anticipation builds beautifully.</div>
+    </div>
+    <div class="process-item rv d4">
+      <div class="process-num">04</div>
+      <div class="process-title">Freshly Crafted & Delivered</div>
+      <div class="process-body">Baked fresh, packaged with care, delivered on time. Your cake arrives ready to become the centrepiece of your celebration.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SPLIT CTA -->
+<div id="cta">
+  <div class="cta-left">
+    <img src="https://images.unsplash.com/photo-1523294587484-bae6cc870010?w=900&q=85&auto=format&fit=crop&crop=center" alt="Beautiful custom celebration cake — Cakebel by Roma" loading="lazy">
+    <div class="cta-left-overlay"></div>
+  </div>
+  <div class="cta-right">
+    <div class="sec-label">Begin Your Order</div>
+    <h2 class="sec-h2" style="color:var(--white)">Ready to Create Your<br><em>Dream Cake?</em></h2>
+    <p class="sec-sub">Every great cake starts with a conversation. Reach out to Roma and let's craft something extraordinary together.</p>
+    <div class="cta-actions">
+      <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to order a custom cake" target="_blank" class="cta-btn-wa">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order on WhatsApp
+      </a>
+      <a href="tel:+919986431122" class="cta-btn-call">Call +91 99864 31122</a>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <!-- 4 corner watermark cake images -->
+  <div class="contact-wm-3"></div>
+  <div class="contact-wm-4"></div>
+  <div class="sec-header rv">
+    <div class="sec-label">Contact & Location</div>
+    <h2 class="sec-h2">Find Us &<br><em>Get In Touch</em></h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-details rv-l">
+      <div class="contact-row">
+        <div class="contact-row-label">Studio</div>
+        <div class="contact-row-val">62/3, I, 58/5, Anekal, 62/5<br>Shikaripalya Main Rd, Maragondanahalli<br>Jigani, Bengaluru, Karnataka 560105<br><em style="font-size:.8rem;color:var(--ink-dim)">Located in Mahendra Elena 5 &mdash; Free parking available</em></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-label">Phone</div>
+        <div class="contact-row-val"><a href="tel:+919986431122">+91 99864 31122</a></div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-label">Payment</div>
+        <div class="contact-row-val">Google Pay &nbsp;·&nbsp; NFC Mobile Payments &nbsp;·&nbsp; Cash</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-label">Services</div>
+        <div class="contact-row-val">Home Delivery &nbsp;·&nbsp; Studio Takeaway</div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-label">Reviews</div>
+        <div class="contact-row-val">4.9 Stars &nbsp;·&nbsp; 173+ Google Reviews</div>
+      </div>
+      <div class="contact-actions">
+        <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to order a custom cake" target="_blank" class="contact-action-btn primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="tel:+919986431122" class="contact-action-btn">Call Now</a>
+        <a href="https://instagram.com/cakebel_roma" target="_blank" class="contact-action-btn">Instagram</a>
+        <a href="https://maps.google.com/?q=Shikaripalya+Main+Rd+Maragondanahalli+Jigani+Bengaluru+560105" target="_blank" class="contact-action-btn">Directions</a>
+      </div>
+      <div class="map-frame">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3890.46!2d77.648!3d12.783!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae6b2ef2c87b37%3A0x0!2sShikaripalya+Main+Rd%2C+Maragondanahalli%2C+Jigani%2C+Bengaluru%2C+Karnataka+560105!5e0!3m2!1sen!2sin!4v1"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Cakebel by Roma location — Jigani, Bengaluru"></iframe>
+      </div>
+    </div>
+    <div class="contact-form rv-r">
+      <div class="form-title">Send an Inquiry</div>
+      <div class="form-sub">Share your requirements and Roma will get back to you within a few hours.</div>
+      <div class="fg fg-row">
+        <div class="fg">
+          <label>Full Name</label>
+          <input type="text" id="fname" placeholder="Your name" required>
+        </div>
+        <div class="fg">
+          <label>Phone Number</label>
+          <input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+      </div>
+      <div class="fg">
+        <label>Occasion</label>
+        <select id="focc">
+          <option value="">Select occasion…</option>
+          <option>Birthday</option>
+          <option>Wedding</option>
+          <option>Anniversary</option>
+          <option>Kids Party</option>
+          <option>Corporate Event</option>
+          <option>Other Celebration</option>
+        </select>
+      </div>
+      <div class="fg fg-row">
+        <div class="fg">
+          <label>Cake Size</label>
+          <select id="fsize">
+            <option>1 Kg</option>
+            <option>1.5 Kg</option>
+            <option>2 Kg</option>
+            <option>3 Kg</option>
+            <option>4+ Kg / Multi-tier</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Event Date</label>
+          <input type="date" id="fdate">
+        </div>
+      </div>
+      <div class="fg">
+        <label>Cake Details & Theme</label>
+        <textarea id="fmsg" placeholder="Describe your theme, flavour preferences, design inspiration, or any special requirements…"></textarea>
+      </div>
+      <button class="form-btn" onclick="submitForm()">Send via WhatsApp</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand-name">Cakebel</div>
+      <span class="footer-brand-sub">by Roma &nbsp;·&nbsp; Premium Cake Studio</span>
+      <p class="footer-brand-desc">Bengaluru's most trusted custom cake studio. Handcrafting luxury cakes for every celebration that matters.</p>
+      <div class="footer-rating">
+        <span class="footer-rating-stars">★★★★★</span>
+        <span class="footer-rating-text">4.9 · 173+ Google Reviews</span>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Navigate</div>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">Our Story</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#process">How to Order</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Collections</div>
+      <ul>
+        <li><a href="#collections">Wedding Cakes</a></li>
+        <li><a href="#collections">Birthday Cakes</a></li>
+        <li><a href="#collections">Kids Theme Cakes</a></li>
+        <li><a href="#collections">Chocolate Truffle</a></li>
+        <li><a href="#collections">Designer Cakes</a></li>
+        <li><a href="#collections">Minimal Luxury</a></li>
+        <li><a href="#collections">Anniversary Cakes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Visit Us</div>
+      <p>62/3, Shikaripalya Main Rd<br>Maragondanahalli, Jigani<br>Bengaluru, KA 560105<br><br><a href="tel:+919986431122">+91 99864 31122</a><br><br>Google Pay &middot; NFC<br>Delivery &amp; Takeaway<br>Free Parking</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2025 Cakebel by Roma. All rights reserved.</div>
+    <div class="footer-social">
+      <a href="https://wa.me/919986431122" target="_blank">WhatsApp</a>
+      <a href="https://instagram.com/cakebel_roma" target="_blank">Instagram</a>
+      <a href="https://maps.google.com/?q=Cakebel+Roma+Jigani+Bengaluru" target="_blank">Google Maps</a>
+    </div>
+    <div class="footer-love">Made with love by Cakebel by Roma</div>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<div class="wa-float">
+  <div class="wa-tooltip">Order a Custom Cake</div>
+  <a href="https://wa.me/919986431122?text=Hi Roma, I'd like to order a custom cake" target="_blank" class="wa-float-btn" aria-label="WhatsApp Cakebel by Roma">
+    <div class="wa-float-pulse"></div>
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="btt" id="btt" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&#8593;</button>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* LOADER */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('out'), 2000);
+});
+
+/* NAV SHADOW */
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('shadowed', window.scrollY > 20);
+  document.getElementById('btt').classList.toggle('show', window.scrollY > 500);
+});
+
+/* MOBILE MENU */
+function toggleMob() {
+  const m = document.getElementById('mobMenu');
+  m.classList.toggle('open');
+}
+function closeMob() {
+  document.getElementById('mobMenu').classList.remove('open');
+}
+
+/* SCROLL REVEAL */
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv, .rv-l, .rv-r').forEach(el => ro.observe(el));
+
+/* FORM SUBMIT */
+function submitForm() {
+  const name  = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const occ   = document.getElementById('focc').value;
+  const size  = document.getElementById('fsize').value;
+  const date  = document.getElementById('fdate').value;
+  const msg   = document.getElementById('fmsg').value.trim();
+  if (!name || !phone || !occ) {
+    showToast('Please fill in your name, phone & occasion.');
+    return;
+  }
+  const text = `Hi Roma!\n\nI'd like to place a custom cake inquiry.\n\nName: ${name}\nPhone: ${phone}\nOccasion: ${occ}\nCake Size: ${size}\nEvent Date: ${date || 'To be confirmed'}\n\nDetails: ${msg || 'Will discuss further'}`;
+  window.open('https://wa.me/919986431122?text=' + encodeURIComponent(text), '_blank');
+  showToast('Redirecting to WhatsApp. Roma will respond shortly.');
+}
+
+/* TOAST */
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+/* ── HERO SLIDESHOW ─────────────────────────────── */
+const heroSlides_data = [
+  { h: 'Crafted with Love,<br><em>Delivered with Joy</em>',      s: 'Luxury handcrafted cakes for every celebration that deserves to be extraordinary.' },
+  { h: 'Every Wedding Needs<br><em>a Showstopper Cake</em>',     s: 'Multi-tier bridal masterpieces designed exclusively for your perfect day.' },
+  { h: 'Kids\' Dreams Baked<br><em>Into Every Slice</em>',       s: 'Whimsical theme cakes that make little eyes go wide with wonder.' },
+  { h: 'Pure Chocolate,<br><em>Pure Indulgence</em>',            s: 'Rich truffle creations and designer cakes for connoisseurs of fine flavour.' },
+];
+
+let currentSlide = 0;
+let slideTimer;
+const slides = document.querySelectorAll('.hero-slide');
+const dots   = document.querySelectorAll('.hero-dot');
+
+function goToSlide(idx) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = (idx + slides.length) % slides.length;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+
+  // Update headline & subtitle
+  const d = heroSlides_data[currentSlide];
+  const hl = document.getElementById('heroHeadline');
+  const sb = document.getElementById('heroSub');
+  if (hl) { hl.style.opacity = 0; setTimeout(() => { hl.innerHTML = d.h; hl.style.opacity = 1; }, 200); }
+  if (sb) { sb.style.opacity = 0; setTimeout(() => { sb.textContent = d.s; sb.style.opacity = 1; }, 300); }
+
+  clearInterval(slideTimer);
+  slideTimer = setInterval(() => heroSlide(1), 5500);
+}
+
+function heroSlide(dir) { goToSlide(currentSlide + dir); }
+
+// Smooth headline transitions
+document.addEventListener('DOMContentLoaded', () => {
+  const hl = document.getElementById('heroHeadline');
+  const sb = document.getElementById('heroSub');
+  if (hl) hl.style.transition = 'opacity .4s ease';
+  if (sb) sb.style.transition = 'opacity .4s ease';
+});
+
+slideTimer = setInterval(() => heroSlide(1), 5500);
+</script>
+</body>
+</html>
