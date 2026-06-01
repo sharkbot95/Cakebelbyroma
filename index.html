@@ -332,24 +332,36 @@ section { padding: 96px 6%; }
   pointer-events: none; z-index: 0;
 }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
+/* ── ABOUT IMAGE SLIDER ───────────────────────────── */
 .about-img-col { position: relative; min-height: 620px; overflow: hidden; }
-.about-img-col img {
-  position: absolute; inset: 0; width: 100%; height: 100%;
+
+/* each slide */
+.aslide {
+  position: absolute; inset: 0;
+  opacity: 0;
+  transition: opacity 1s var(--ease), transform 1.4s var(--ease);
+  transform: scale(1.04);
+  z-index: 0;
+}
+.aslide.active {
+  opacity: 1; transform: scale(1); z-index: 1;
+}
+.aslide img {
+  width: 100%; height: 100%;
   object-fit: cover; object-position: center 30%;
-  transition: transform 1.4s var(--ease);
-  image-rendering: -webkit-optimize-contrast;
+  display: block;
   filter: contrast(1.04) saturate(1.06) brightness(1.01);
 }
-.about-img-col:hover img { transform: scale(1.05); }
-/* subtle dark-to-transparent gradient to ground the badge */
+/* bottom gradient */
 .about-img-col::after {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(20,14,10,.55) 0%, rgba(20,14,10,.12) 40%, transparent 70%);
-  pointer-events: none; z-index: 1;
+  background: linear-gradient(to top, rgba(20,14,10,.6) 0%, rgba(20,14,10,.1) 45%, transparent 72%);
+  pointer-events: none; z-index: 4;
 }
+/* badge */
 .about-img-badge {
-  position: absolute; bottom: 40px; left: 40px; z-index: 3;
+  position: absolute; bottom: 40px; left: 40px; z-index: 6;
   background: rgba(255,255,255,.96); padding: 20px 28px;
   border-left: 3px solid var(--accent);
   backdrop-filter: blur(8px);
@@ -357,6 +369,59 @@ section { padding: 96px 6%; }
 }
 .about-img-badge .num { font-family: var(--ff-display); font-size: 2.6rem; font-weight: 400; color: var(--ink); line-height: 1; }
 .about-img-badge .lbl { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dim); margin-top: 4px; }
+
+/* caption that fades in with each slide */
+.aslide-caption {
+  position: absolute; bottom: 44px; right: 24px; z-index: 6;
+  color: rgba(255,255,255,.75);
+  font-size: .64rem; letter-spacing: .22em; text-transform: uppercase;
+  font-family: var(--ff-body);
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .5s .6s, transform .5s .6s;
+}
+.aslide.active .aslide-caption { opacity: 1; transform: translateY(0); }
+
+/* prev / next arrows */
+.aslide-prev, .aslide-next {
+  position: absolute; top: 50%; z-index: 6;
+  transform: translateY(-50%);
+  width: 42px; height: 42px;
+  background: rgba(255,255,255,.15); backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  color: var(--white); font-size: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background .25s, transform .25s;
+}
+.aslide-prev { left: 16px; }
+.aslide-next { right: 16px; }
+.aslide-prev:hover, .aslide-next:hover {
+  background: rgba(255,255,255,.3); transform: translateY(-50%) scale(1.08);
+}
+
+/* dot indicators */
+.aslide-dots {
+  position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+  z-index: 6; display: flex; gap: 7px; align-items: center;
+}
+.aslide-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  cursor: pointer; transition: all .3s;
+  border: none;
+}
+.aslide-dot.active {
+  width: 20px; border-radius: 3px;
+  background: rgba(255,255,255,.9);
+}
+
+/* slide counter top-right */
+.aslide-counter {
+  position: absolute; top: 20px; right: 20px; z-index: 6;
+  font-size: .68rem; letter-spacing: .18em;
+  color: rgba(255,255,255,.6);
+  font-family: var(--ff-body);
+}
 /* ── WATERMARK ───────────────────────────────────── */
 /* ── FULL-PAGE WATERMARK ─────────────────────────── */
 #page-watermark {
@@ -944,19 +1009,66 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 6% 
 <section id="about">
   <div class="about-grid">
     <div class="about-img-col rv-l">
-      <!-- High-res rich chocolate drip cake — crisp, food-photography grade -->
-      <img
-        src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=1200&q=95&auto=format&fit=crop&crop=center&sat=10"
-        alt="Premium chocolate drip cake handcrafted by Cakebel by Roma, Bangalore"
-        loading="eager"
-        decoding="async"
-      >
-      <!-- Watermark is now full-page — see #page-watermark div -->
+
+      <!-- Slide 1 — Chocolate drip cake -->
+      <div class="aslide active" id="aslide-0">
+        <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=1200&q=95&auto=format&fit=crop&crop=center"
+             alt="Rich chocolate drip cake — Cakebel by Roma" loading="eager">
+        <span class="aslide-caption">Chocolate Truffle Collection</span>
+      </div>
+
+      <!-- Slide 2 — Elegant floral wedding cake -->
+      <div class="aslide" id="aslide-1">
+        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=1200&q=95&auto=format&fit=crop&crop=center"
+             alt="Elegant floral wedding cake — Cakebel by Roma" loading="lazy">
+        <span class="aslide-caption">Wedding Collection</span>
+      </div>
+
+      <!-- Slide 3 — Pastel birthday cake -->
+      <div class="aslide" id="aslide-2">
+        <img src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=1200&q=95&auto=format&fit=crop&crop=center"
+             alt="Pastel birthday cake — Cakebel by Roma" loading="lazy">
+        <span class="aslide-caption">Birthday Collection</span>
+      </div>
+
+      <!-- Slide 4 — Minimal luxury white cake -->
+      <div class="aslide" id="aslide-3">
+        <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?w=1200&q=95&auto=format&fit=crop&crop=center"
+             alt="Minimal luxury white cake — Cakebel by Roma" loading="lazy">
+        <span class="aslide-caption">Minimal Luxury Collection</span>
+      </div>
+
+      <!-- Slide 5 — Kids colourful theme cake -->
+      <div class="aslide" id="aslide-4">
+        <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=1200&q=95&auto=format&fit=crop&crop=center"
+             alt="Colourful kids theme cake — Cakebel by Roma" loading="lazy">
+        <span class="aslide-caption">Kids Theme Collection</span>
+      </div>
+
+      <!-- Slide 6 — Designer floral cake -->
+      <div class="aslide" id="aslide-5">
+        <img src="https://images.unsplash.com/photo-1568051243858-533a607809a5?w=1200&q=95&auto=format&fit=crop&crop=center"
+             alt="Designer floral cake — Cakebel by Roma" loading="lazy">
+        <span class="aslide-caption">Designer Collection</span>
+      </div>
+
+      <!-- Prev / Next -->
+      <button class="aslide-prev" onclick="aboutSlide(-1)" aria-label="Previous">&#8592;</button>
+      <button class="aslide-next" onclick="aboutSlide(1)"  aria-label="Next">&#8594;</button>
+
+      <!-- Dot indicators -->
+      <div class="aslide-dots" id="aslideDots"></div>
+
+      <!-- Counter -->
+      <div class="aslide-counter" id="aslideCounter">1 / 6</div>
+
+      <!-- Watermark is full-page — see #page-watermark -->
       <!-- Rating badge -->
       <div class="about-img-badge">
         <div class="num">4.9<span style="font-size:1.4rem">★</span></div>
         <div class="lbl">Google Rating</div>
       </div>
+
     </div>
     <div class="about-text-col rv-r">
       <div class="sec-label">Our Story</div>
@@ -1719,6 +1831,64 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 slideTimer = setInterval(() => heroSlide(1), 5500);
+
+/* ── ABOUT IMAGE SLIDER ─────────────────────────── */
+(function() {
+  const TOTAL = 6;
+  let cur = 0, timer;
+  const getSlides = () => document.querySelectorAll('.aslide');
+  const dotsEl = document.getElementById('aslideDots');
+  const counter = document.getElementById('aslideCounter');
+
+  function buildDots() {
+    if (!dotsEl) return;
+    dotsEl.innerHTML = '';
+    for (let i = 0; i < TOTAL; i++) {
+      const d = document.createElement('button');
+      d.className = 'aslide-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide ' + (i + 1));
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function goTo(n) {
+    const sl = getSlides();
+    if (!sl.length) return;
+    sl[cur].classList.remove('active');
+    if (dotsEl && dotsEl.children[cur]) dotsEl.children[cur].classList.remove('active');
+    cur = (n + TOTAL) % TOTAL;
+    sl[cur].classList.add('active');
+    if (dotsEl && dotsEl.children[cur]) dotsEl.children[cur].classList.add('active');
+    if (counter) counter.textContent = (cur + 1) + ' / ' + TOTAL;
+    restartTimer();
+  }
+
+  function restartTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => goTo(cur + 1), 4000);
+  }
+
+  window.aboutSlide = (dir) => goTo(cur + dir);
+
+  const col = document.querySelector('.about-img-col');
+  if (col) {
+    col.addEventListener('mouseenter', () => clearInterval(timer));
+    col.addEventListener('mouseleave', restartTimer);
+    let tx = 0;
+    col.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+    col.addEventListener('touchend', e => {
+      const diff = tx - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) goTo(cur + (diff > 0 ? 1 : -1));
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { buildDots(); restartTimer(); });
+  } else {
+    buildDots(); restartTimer();
+  }
+})();
 </script>
 </body>
 </html>
