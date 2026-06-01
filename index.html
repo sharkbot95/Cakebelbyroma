@@ -37,7 +37,8 @@
 /* ── RESET ───────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: var(--ff-body); background: var(--white); color: var(--ink); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+body { font-family: var(--ff-body); background: var(--white); color: var(--ink); overflow-x: hidden; -webkit-font-smoothing: antialiased; position: relative; }
+nav, section, footer, .announce, .ticker, #cta, .wa-float, .btt, .toast, #loader, .mob-menu { position: relative; z-index: 1; }
 img { display: block; max-width: 100%; height: auto; }
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; border: none; background: none; }
@@ -331,16 +332,43 @@ section { padding: 96px 6%; }
   pointer-events: none; z-index: 0;
 }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; position: relative; z-index: 1; }
-.about-img-col { position: relative; min-height: 600px; overflow: hidden; }
-.about-img-col img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-.about-img-col:hover img { transform: scale(1.04); }
+.about-img-col { position: relative; min-height: 620px; overflow: hidden; }
+.about-img-col img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 30%;
+  transition: transform 1.4s var(--ease);
+  image-rendering: -webkit-optimize-contrast;
+  filter: contrast(1.04) saturate(1.06) brightness(1.01);
+}
+.about-img-col:hover img { transform: scale(1.05); }
+/* subtle dark-to-transparent gradient to ground the badge */
+.about-img-col::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(20,14,10,.55) 0%, rgba(20,14,10,.12) 40%, transparent 70%);
+  pointer-events: none; z-index: 1;
+}
 .about-img-badge {
-  position: absolute; bottom: 40px; left: 40px;
-  background: var(--white); padding: 20px 28px;
+  position: absolute; bottom: 40px; left: 40px; z-index: 3;
+  background: rgba(255,255,255,.96); padding: 20px 28px;
   border-left: 3px solid var(--accent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(20,14,10,.18);
 }
 .about-img-badge .num { font-family: var(--ff-display); font-size: 2.6rem; font-weight: 400; color: var(--ink); line-height: 1; }
 .about-img-badge .lbl { font-size: .66rem; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dim); margin-top: 4px; }
+/* ── WATERMARK ───────────────────────────────────── */
+/* ── FULL-PAGE WATERMARK ─────────────────────────── */
+#page-watermark {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='180'%3E%3Ctext transform='rotate(-32,210,90)' x='50%25' y='52%25' text-anchor='middle' dominant-baseline='middle' font-family='Georgia%2Cserif' font-size='22' font-weight='600' letter-spacing='3' fill='rgba(26%2C21%2C18%2C0.06)'%3ECakebel by Roma%3C%2Ftext%3E%3Ctext transform='rotate(-32%2C210%2C90)' x='50%25' y='70%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial%2Csans-serif' font-size='9' font-weight='400' letter-spacing='6' fill='rgba(26%2C21%2C18%2C0.05)'%3EPREMIUM CAKE STUDIO%3C%2Ftext%3E%3C%2Fsvg%3E");
+  background-repeat: repeat;
+  background-size: 420px 180px;
+}
 .about-text-col { padding: 80px 6% 80px 7%; display: flex; flex-direction: column; justify-content: center; }
 .about-quote { font-family: var(--ff-italic); font-size: 1.5rem; font-weight: 300; font-style: italic; color: var(--accent2); line-height: 1.6; margin: 28px 0 32px; border-left: 2px solid var(--warm); padding-left: 24px; }
 .about-body { font-size: .95rem; font-weight: 300; line-height: 2; color: var(--ink-mid); margin-bottom: 40px; }
@@ -705,6 +733,9 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 6% 
 </head>
 <body>
 
+<!-- FULL-PAGE WATERMARK — fixed, tiles entire viewport, pointer-events:none -->
+<div id="page-watermark" aria-hidden="true"></div>
+
 <!-- LOADER -->
 <div id="loader">
   <div class="loader-brand">Cakebel</div>
@@ -761,26 +792,89 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 6% 
     <div class="hero-slide"></div>
   </div>
 
-  <!-- Floating product cake images -->
-  <div class="hero-products">
-    <div class="hero-prod hero-prod-1">
-      <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=520&q=85&auto=format&fit=crop&crop=center" alt="Wedding cake">
+  <!-- Floating product cake images — per-slide sets -->
+  <div class="hero-products" id="heroProducts">
+
+    <!-- SLIDE 0 — "Crafted with Love, Delivered with Joy" (warm orange) -->
+    <div class="hero-prod hero-prod-1 slide-imgs slide-0-imgs">
+      <img src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=520&q=85&auto=format&fit=crop&crop=center" alt="Celebration cake">
     </div>
-    <div class="hero-prod hero-prod-2">
-      <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=420&q=85&auto=format&fit=crop&crop=top" alt="Birthday cake">
+    <div class="hero-prod hero-prod-2 slide-imgs slide-0-imgs">
+      <img src="https://images.unsplash.com/photo-1562777717-dc6984f65a63?w=420&q=85&auto=format&fit=crop&crop=center" alt="Luxury custom cake">
     </div>
-    <div class="hero-prod hero-prod-3">
-      <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=600&q=85&auto=format&fit=crop&crop=center" alt="Custom cake">
+    <div class="hero-prod hero-prod-3 slide-imgs slide-0-imgs">
+      <img src="https://images.unsplash.com/photo-1523294587484-bae6cc870010?w=600&q=85&auto=format&fit=crop&crop=center" alt="Anniversary cake">
     </div>
-    <div class="hero-prod hero-prod-4">
-      <img src="https://images.unsplash.com/photo-1558301211-0d8c8ddee6ec?w=680&q=85&auto=format&fit=crop&crop=center" alt="Floral birthday cake">
+    <div class="hero-prod hero-prod-4 slide-imgs slide-0-imgs">
+      <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=680&q=85&auto=format&fit=crop&crop=center" alt="Designer cake">
     </div>
-    <div class="hero-prod hero-prod-5">
-      <img src="https://images.unsplash.com/photo-1568051243858-533a607809a5?w=440&q=85&auto=format&fit=crop&crop=center" alt="Floral designer cake">
+    <div class="hero-prod hero-prod-5 slide-imgs slide-0-imgs">
+      <img src="https://images.unsplash.com/photo-1551879400-111a9087cd86?w=440&q=85&auto=format&fit=crop&crop=center" alt="Floral cake">
     </div>
-    <div class="hero-prod hero-prod-6">
-      <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=360&q=85&auto=format&fit=crop&crop=center" alt="Chocolate truffle cake">
+    <div class="hero-prod hero-prod-6 slide-imgs slide-0-imgs">
+      <img src="https://images.unsplash.com/photo-1587668178277-295251f900ce?w=360&q=85&auto=format&fit=crop&crop=center" alt="Custom designer cake">
     </div>
+
+    <!-- SLIDE 1 — "Every Wedding Needs a Showstopper Cake" (pink/purple) -->
+    <div class="hero-prod hero-prod-1 slide-imgs slide-1-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=520&q=85&auto=format&fit=crop&crop=center" alt="Elegant wedding cake with roses">
+    </div>
+    <div class="hero-prod hero-prod-2 slide-imgs slide-1-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=420&q=85&auto=format&fit=crop&crop=center" alt="Multi-tier wedding cake">
+    </div>
+    <div class="hero-prod hero-prod-3 slide-imgs slide-1-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1516054575922-f0b8eeadec1a?w=600&q=85&auto=format&fit=crop&crop=center" alt="Luxury white wedding cake">
+    </div>
+    <div class="hero-prod hero-prod-4 slide-imgs slide-1-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=680&q=85&auto=format&fit=crop&crop=center" alt="Floral wedding tier cake">
+    </div>
+    <div class="hero-prod hero-prod-5 slide-imgs slide-1-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1568051243858-533a607809a5?w=440&q=85&auto=format&fit=crop&crop=center" alt="Romantic floral designer cake">
+    </div>
+    <div class="hero-prod hero-prod-6 slide-imgs slide-1-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=360&q=85&auto=format&fit=crop&crop=center" alt="Wedding cake detail">
+    </div>
+
+    <!-- SLIDE 2 — "Kids' Dreams Baked Into Every Slice" (green) -->
+    <div class="hero-prod hero-prod-1 slide-imgs slide-2-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=520&q=85&auto=format&fit=crop&crop=center" alt="Colourful kids birthday cake">
+    </div>
+    <div class="hero-prod hero-prod-2 slide-imgs slide-2-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1559620192-032c4bc4674e?w=420&q=85&auto=format&fit=crop&crop=center" alt="Sprinkle birthday cake">
+    </div>
+    <div class="hero-prod hero-prod-3 slide-imgs slide-2-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&q=85&auto=format&fit=crop&crop=top" alt="Candle birthday cake kids">
+    </div>
+    <div class="hero-prod hero-prod-4 slide-imgs slide-2-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=680&q=85&auto=format&fit=crop&crop=center" alt="Rainbow theme kids cake">
+    </div>
+    <div class="hero-prod hero-prod-5 slide-imgs slide-2-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=440&q=85&auto=format&fit=crop&crop=center" alt="Pastel kids party cake">
+    </div>
+    <div class="hero-prod hero-prod-6 slide-imgs slide-2-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=360&q=85&auto=format&fit=crop&crop=center" alt="Slice kids celebration cake">
+    </div>
+
+    <!-- SLIDE 3 — "Pure Chocolate, Pure Indulgence" (blue) -->
+    <div class="hero-prod hero-prod-1 slide-imgs slide-3-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=520&q=85&auto=format&fit=crop&crop=center" alt="Dark chocolate truffle cake">
+    </div>
+    <div class="hero-prod hero-prod-2 slide-imgs slide-3-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=420&q=85&auto=format&fit=crop&crop=center" alt="Rich chocolate ganache cake">
+    </div>
+    <div class="hero-prod hero-prod-3 slide-imgs slide-3-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=600&q=85&auto=format&fit=crop&crop=top" alt="Chocolate layer cake slice">
+    </div>
+    <div class="hero-prod hero-prod-4 slide-imgs slide-3-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1483695028939-5bb13f8648b0?w=680&q=85&auto=format&fit=crop&crop=center" alt="Chocolate fudge designer cake">
+    </div>
+    <div class="hero-prod hero-prod-5 slide-imgs slide-3-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=440&q=85&auto=format&fit=crop&crop=center" alt="Chocolate drip cake">
+    </div>
+    <div class="hero-prod hero-prod-6 slide-imgs slide-3-imgs" style="display:none">
+      <img src="https://images.unsplash.com/photo-1562440499-64c9a111f713?w=360&q=85&auto=format&fit=crop&crop=center" alt="Dark truffle celebration cake">
+    </div>
+
   </div>
 
   <!-- Arrows -->
@@ -850,7 +944,15 @@ footer { background: var(--ink); color: rgba(255,255,255,.55); padding: 72px 6% 
 <section id="about">
   <div class="about-grid">
     <div class="about-img-col rv-l">
-      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=900&q=85&auto=format&fit=crop&crop=center" alt="Baker Roma crafting a luxury cake — Cakebel by Roma, Bangalore" loading="lazy">
+      <!-- High-res rich chocolate drip cake — crisp, food-photography grade -->
+      <img
+        src="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=1200&q=95&auto=format&fit=crop&crop=center&sat=10"
+        alt="Premium chocolate drip cake handcrafted by Cakebel by Roma, Bangalore"
+        loading="eager"
+        decoding="async"
+      >
+      <!-- Watermark is now full-page — see #page-watermark div -->
+      <!-- Rating badge -->
       <div class="about-img-badge">
         <div class="num">4.9<span style="font-size:1.4rem">★</span></div>
         <div class="lbl">Google Rating</div>
@@ -1572,6 +1674,7 @@ const dots   = document.querySelectorAll('.hero-dot');
 function goToSlide(idx) {
   slides[currentSlide].classList.remove('active');
   dots[currentSlide].classList.remove('active');
+  const prevSlide = currentSlide;
   currentSlide = (idx + slides.length) % slides.length;
   slides[currentSlide].classList.add('active');
   dots[currentSlide].classList.add('active');
@@ -1582,6 +1685,24 @@ function goToSlide(idx) {
   const sb = document.getElementById('heroSub');
   if (hl) { hl.style.opacity = 0; setTimeout(() => { hl.innerHTML = d.h; hl.style.opacity = 1; }, 200); }
   if (sb) { sb.style.opacity = 0; setTimeout(() => { sb.textContent = d.s; sb.style.opacity = 1; }, 300); }
+
+  // Swap floating product images — fade out old set, fade in new set
+  const oldImgs = document.querySelectorAll('.slide-' + prevSlide + '-imgs');
+  const newImgs = document.querySelectorAll('.slide-' + currentSlide + '-imgs');
+
+  oldImgs.forEach(el => {
+    el.style.transition = 'opacity 0.5s ease';
+    el.style.opacity = '0';
+    setTimeout(() => { el.style.display = 'none'; el.style.opacity = ''; el.style.transition = ''; }, 520);
+  });
+
+  newImgs.forEach(el => {
+    el.style.display = 'block';
+    el.style.opacity = '0';
+    el.style.transition = 'opacity 0.6s ease';
+    setTimeout(() => { el.style.opacity = '1'; }, 30);
+    setTimeout(() => { el.style.transition = ''; el.style.opacity = ''; }, 680);
+  });
 
   clearInterval(slideTimer);
   slideTimer = setInterval(() => heroSlide(1), 5500);
